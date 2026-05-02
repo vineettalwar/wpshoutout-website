@@ -1,0 +1,81 @@
+name: CI / CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Required for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment runs at a time; in-progress ones are cancelled
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  # ─── CI: validate every push and PR ────────────────────────────────────────
+  validate:
+    name: Build & Type-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type-check frontend
+        run: pnpm --filter @workspace/wpshoutout run typecheck
+
+      - name: Type-check API server
+        run: pnpm --filter @workspace/api-server run typecheck
+
+      - name: Build frontend
+        env:
+          PORT: "3000"
+          BASE_PATH: "/"
+          NODE_ENV: production
+        run: pnpm --filter @workspace/wpshoutout run build
+
+      - name: Build API server
+        env:
+          NODE_ENV: production
+        run: pnpm --filter @workspace/api-server run build
+
+      # Upload the built frontend so the deploy job can use it
+      - name: Upload Pages artifact
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: artifacts/wpshoutout/dist/public
+
+  # ─── CD: deploy frontend to GitHub Pages on every merge to main ─────────────
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: validate
+    runs-on: ubuntu-latest
+    # Only deploy on direct pushes to main (not PRs)
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
