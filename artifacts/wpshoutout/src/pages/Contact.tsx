@@ -26,7 +26,7 @@ export default function Contact() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(_values: z.infer<typeof formSchema>) {
     toast({
       title: "Message sent!",
       description: "We'll get back to you as soon as possible.",
@@ -35,17 +35,32 @@ export default function Contact() {
   }
 
   const cards = [
-    { icon: Megaphone, title: "Advertise", desc: "Advertise with WP Shoutout across its shows and reach out to WordPress fans worldwide." },
-    { icon: Handshake, title: "Collaborate", desc: "Want to collaborate for a business opportunity? We are all ears to hear it out from you." },
-    { icon: Newspaper, title: "PR", desc: "Reach the worldwide WordPress community for your PR efforts. Tell us about your product or service." },
-    { icon: UserPlus, title: "Join", desc: "WPShoutOut community is growing by the day. We would like to have you on-board and add value with your contributions." },
+    {
+      icon: Megaphone,
+      title: "Advertise",
+      desc: "Advertise with WP Shoutout across its shows and reach out to WordPress fans worldwide.",
+    },
+    {
+      icon: Handshake,
+      title: "Collaborate",
+      desc: "Want to collaborate for a business opportunity? We are all ears to hear it out from you.",
+    },
+    {
+      icon: Newspaper,
+      title: "PR",
+      desc: "Reach the worldwide WordPress community for your PR efforts. Tell us about your product or service.",
+    },
+    {
+      icon: UserPlus,
+      title: "Join",
+      desc: "WPShoutOut community is growing by the day. We would like to have you on-board and add value with your contributions.",
+    },
   ];
 
   return (
     <div className="w-full pt-32 pb-24">
       <div className="container px-4 md:px-8 max-w-6xl mx-auto">
-        
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-20 max-w-2xl mx-auto"
@@ -57,16 +72,18 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          
           {/* Left: Cards */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-6"
           >
-            {cards.map((card, i) => (
-              <div key={card.title} className="bg-card p-6 rounded-2xl border border-border hover:border-primary/50 transition-colors">
+            {cards.map((card) => (
+              <div
+                key={card.title}
+                className="bg-card p-6 rounded-2xl border border-border hover:border-primary/50 transition-colors"
+              >
                 <card.icon className="h-8 w-8 text-primary mb-4" />
                 <h3 className="text-xl font-bold font-display mb-2">{card.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{card.desc}</p>
@@ -104,7 +121,12 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="john@example.com" {...field} className="bg-background border-border" />
+                        <Input
+                          type="email"
+                          placeholder="john@example.com"
+                          {...field}
+                          className="bg-background border-border"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -117,10 +139,10 @@ export default function Contact() {
                     <FormItem>
                       <FormLabel>Message</FormLabel>
                       <FormControl>
-                        <Textarea 
-                          placeholder="How can we help you?" 
-                          className="min-h-[150px] bg-background border-border resize-none" 
-                          {...field} 
+                        <Textarea
+                          placeholder="How can we help you?"
+                          className="min-h-[140px] bg-background border-border resize-none"
+                          {...field}
                         />
                       </FormControl>
                       <FormMessage />
@@ -132,10 +154,29 @@ export default function Contact() {
                 </Button>
               </form>
             </Form>
+            <p className="mt-4 text-center text-xs text-muted-foreground">
+              This site is protected by reCAPTCHA and the Google{" "}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-foreground transition-colors"
+              >
+                Privacy Policy
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://policies.google.com/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-foreground transition-colors"
+              >
+                Terms of Service
+              </a>{" "}
+              apply.
+            </p>
           </motion.div>
-
         </div>
-
       </div>
     </div>
   );
