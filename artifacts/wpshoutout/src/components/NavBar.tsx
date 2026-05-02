@@ -35,20 +35,23 @@ export function NavBar() {
       }`}
     >
       <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 z-50">
+        <Link href="/" aria-label="WP Shoutout — home" className="flex items-center gap-2 z-50">
           <img
             src="https://cdn.firemudfm.com/media/wpshoutout/sites/5/2018/04/10165953/logo-stroked-2.png"
-            alt="WP Shoutout Logo"
+            alt="WP Shoutout"
+            width={130}
+            height={40}
             className="h-10 w-auto"
           />
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav aria-label="Primary" className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
+              aria-current={location === link.href ? "page" : undefined}
               className={`text-sm font-medium transition-colors hover:text-primary ${
                 location === link.href ? "text-primary" : "text-muted-foreground"
               }`}
@@ -60,14 +63,21 @@ export function NavBar() {
 
         {/* Mobile Menu Toggle */}
         <button
+          type="button"
           className="md:hidden z-50 text-foreground"
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-nav"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
         </button>
 
         {/* Mobile Nav Overlay */}
-        <div
+        <nav
+          id="mobile-nav"
+          aria-label="Mobile"
+          aria-hidden={!isMobileMenuOpen}
           className={`fixed inset-0 bg-background/95 backdrop-blur-lg flex flex-col items-center justify-center gap-8 transition-opacity duration-300 md:hidden ${
             isMobileMenuOpen
               ? "opacity-100 pointer-events-auto"
@@ -78,6 +88,7 @@ export function NavBar() {
             <Link
               key={link.href}
               href={link.href}
+              aria-current={location === link.href ? "page" : undefined}
               onClick={() => setIsMobileMenuOpen(false)}
               className={`text-2xl font-display font-medium transition-colors hover:text-primary ${
                 location === link.href ? "text-primary" : "text-muted-foreground"
@@ -86,7 +97,7 @@ export function NavBar() {
               {link.label}
             </Link>
           ))}
-        </div>
+        </nav>
       </div>
     </header>
   );
