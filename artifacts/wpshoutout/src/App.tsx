@@ -11,6 +11,8 @@ import Seasons from "@/pages/Seasons";
 import Schedule from "@/pages/Schedule";
 import JoinUs from "@/pages/JoinUs";
 import Blog from "@/pages/Blog";
+import BlogPost from "@/pages/BlogPost";
+import Season from "@/pages/Season";
 import Contact from "@/pages/Contact";
 import { PlayerProvider } from "@/context/PlayerContext";
 
@@ -23,9 +25,11 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/seasons" component={Seasons} />
+        <Route path="/season/:slug" component={Season} />
         <Route path="/schedule" component={Schedule} />
         <Route path="/join-us" component={JoinUs} />
         <Route path="/blog" component={Blog} />
+        <Route path="/blog/:slug" component={BlogPost} />
         <Route path="/contact" component={Contact} />
         <Route component={NotFound} />
       </Switch>
