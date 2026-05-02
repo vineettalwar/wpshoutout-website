@@ -24,18 +24,13 @@ Premium WordPress podcast website — a React + Vite static frontend with an Exp
 - **Database**: PostgreSQL + Drizzle ORM
 - **Validation**: Zod (`zod/v4`), `drizzle-zod`
 - **Email**: Resend (via `RESEND_API_KEY` secret)
-- **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (API server), Vite (frontend)
 
 ## Key Commands
 
 - `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/wpshoutout run typecheck` — typecheck frontend only
-- `pnpm --filter @workspace/api-server run typecheck` — typecheck API only
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
+- `pnpm --filter @workspace/wpshoutout run typecheck` — frontend only
+- `pnpm --filter @workspace/api-server run typecheck` — API only
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- `pnpm --filter @workspace/api-server run dev` — run API server locally
 
 ## Environment Variables / Secrets
 
@@ -44,36 +39,32 @@ Premium WordPress podcast website — a React + Vite static frontend with an Exp
 - `CONTACT_EMAIL` — Recipient email (default: hello@wpshoutout.com)
 - `CONTACT_FROM_EMAIL` — Sender email (default: noreply@wpshoutout.com)
 
-### GitHub Actions (for CI/CD pipeline)
-- `API_BASE_URL` *(GitHub Secret)* — Full URL of the deployed Replit API server, e.g. `https://wpshoutout.replit.app`. Without this, the contact form falls back to a same-origin relative path (works on Replit, not on GitHub Pages).
-- `PAGES_BASE_PATH` *(GitHub Variable, optional)* — Override the base path for GitHub Pages. Defaults to `/<repo-name>/`. Set to `/` if using a custom domain or org/user site at root.
+### GitHub Actions
+- `API_BASE_URL` *(Secret)* — Full URL of the deployed API server, e.g. `https://wpshoutout.onrender.com`. Without this, the contact form uses a same-origin relative path (works on Replit).
+- `API_DEPLOY_HOOK` *(Secret)* — Deploy hook URL from your API hosting provider (Render, Railway, etc.). When set, every merge to `main` automatically redeploys the API server.
+- `PAGES_BASE_PATH` *(Variable, optional)* — Override the GitHub Pages base path. Defaults to `/<repo-name>/`. Set to `/` for a custom domain or org/user site at root.
 
-## CI/CD (GitHub Actions)
+## CI/CD Pipeline (`.github/workflows/ci-cd.yml`)
 
-`.github/workflows/ci-cd.yml` runs on every push and PR to `main`:
+Runs on every push and PR to `main`.
 
-**CI job** (all pushes and PRs):
-- Installs dependencies with `pnpm install --frozen-lockfile`
-- Type-checks both the frontend and API server
-- Builds the frontend with the correct `BASE_PATH` and `VITE_API_BASE_URL`
-- Builds the API server
+### CI job (all pushes and PRs)
+1. Install with `pnpm install --frozen-lockfile`
+2. Type-check frontend and API server
+3. Build frontend with resolved `BASE_PATH` and `VITE_API_BASE_URL`
+4. Build API server
+5. On `main` push: copy `index.html` → `404.html` (SPA route fallback) and upload Pages artifact
 
-**CD job** (merges to `main` only):
-- Copies `index.html` → `404.html` for SPA client-side route fallback on GitHub Pages
-- Deploys the built static frontend to GitHub Pages automatically via OIDC (no stored tokens needed)
+### CD — Frontend (merges to `main`)
+- Deploys static frontend to **GitHub Pages** automatically via OIDC
 
-### GitHub Pages Setup (one-time)
+### CD — API Server (merges to `main`)
+- Calls `API_DEPLOY_HOOK` to trigger a redeploy on Render/Railway/etc.
+- If the secret is not set, logs a warning but does not fail the workflow
 
-1. Go to **Settings → Pages** in your GitHub repository
-2. Set **Source** to **GitHub Actions**
-3. Add a repository secret `API_BASE_URL` pointing to your deployed Replit API server URL
-4. *(Optional)* Add a repository variable `PAGES_BASE_PATH` if using a custom domain or root path
-5. Push any commit to `main` — the workflow handles the rest
-
-The deployed site will be at `https://<org>.github.io/<repo>/` (or your custom domain).
-
-### API Server Deployment
-
-The API server (Express + Resend contact endpoint) is deployed via Replit's **Publish** button. After publishing, copy the `.replit.app` URL and set it as the `API_BASE_URL` GitHub secret so the GitHub Pages frontend can reach it.
-
-See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+### One-time GitHub setup
+1. **Settings → Pages → Source**: set to **GitHub Actions**
+2. Add secret `API_BASE_URL` = your deployed API server URL
+3. Add secret `API_DEPLOY_HOOK` = deploy hook URL from your API host (Render/Railway)
+4. *(Optional)* Add variable `PAGES_BASE_PATH = /` if using a custom domain at root
+5. Push to `main` — both frontend and API deploy automatically from that point on
