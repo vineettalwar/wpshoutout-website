@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { posts } from "@/data/blog";
 import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
+import { pub } from "@/lib/assets";
 
 export default function Blog() {
   useSeo({
@@ -64,7 +65,7 @@ export default function Blog() {
               <Link href={`/blog/${post.slug}`} className="block">
                 <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-6 bg-card border border-border/50">
                   <img
-                    src={post.img}
+                    src={pub(post.img)}
                     alt={post.title}
                     loading={i < 2 ? "eager" : "lazy"}
                     decoding="async"

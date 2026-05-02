@@ -3,6 +3,7 @@ import { Play, SkipBack, SkipForward, Volume2, X, ExternalLink } from "lucide-re
 import { Button } from "@/components/ui/button";
 import { usePlayer } from "@/context/PlayerContext";
 import { allEpisodes } from "@/data/episodes";
+import { pub } from "@/lib/assets";
 
 export function AudioPlayer() {
   const { currentEpisode, setCurrentEpisode } = usePlayer();
@@ -35,7 +36,7 @@ export function AudioPlayer() {
           <div className="flex items-center gap-4 w-full md:w-1/3">
             <div className="h-12 w-12 rounded bg-muted flex items-center justify-center overflow-hidden flex-shrink-0">
               <img
-                src="https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21214927/WP-shoutout-season-1-cover.jpg"
+                src={pub("/images/seasons/s1-cover.jpg")}
                 alt="WP Shoutout"
                 className="h-full w-full object-cover opacity-50 grayscale"
               />
@@ -136,7 +137,7 @@ export function AudioPlayer() {
           <div className="flex items-center gap-4 w-full md:w-1/3">
             <div className="h-12 w-12 rounded bg-muted flex items-center justify-center overflow-hidden flex-shrink-0">
               <img
-                src={currentEpisode.coverImg}
+                src={pub(currentEpisode.coverImg)}
                 alt={currentEpisode.seasonTitle}
                 className="h-full w-full object-cover"
               />
@@ -208,7 +209,7 @@ export function AudioPlayer() {
           <div className="flex items-center gap-3 min-w-0">
             <div className="h-8 w-8 rounded overflow-hidden flex-shrink-0">
               <img
-                src={currentEpisode.coverImg}
+                src={pub(currentEpisode.coverImg)}
                 alt={currentEpisode.seasonTitle}
                 className="h-full w-full object-cover"
               />

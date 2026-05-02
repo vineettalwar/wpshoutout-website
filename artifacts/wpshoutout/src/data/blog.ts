@@ -23,7 +23,7 @@ export const posts: BlogPost[] = [
     date: "Jul 25, 2022",
     readingTime: "9 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2025/12/02103754/Ep13.png",
+    img: "/images/blog/ep13.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Dean and Simeon for an insightful conversation about their journey in Nitropack, their ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -66,7 +66,7 @@ export const posts: BlogPost[] = [
     date: "Jul 23, 2022",
     readingTime: "5 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2025/12/02103803/Ep12.png",
+    img: "/images/blog/ep12.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Stefano Minoia and Alicia for an insightful conversation about their journey, ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -102,7 +102,7 @@ export const posts: BlogPost[] = [
     date: "Jul 21, 2022",
     readingTime: "14 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2022/07/01134732/Episode-11.png",
+    img: "/images/blog/ep11.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with DJ (Daugirdas Jankus) and Justinas Rakašis for an insightful conversation about their journey, ideas, and the future of Hostinger. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -155,7 +155,7 @@ export const posts: BlogPost[] = [
     date: "Jul 19, 2022",
     readingTime: "14 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2025/12/02103823/Ep10.png",
+    img: "/images/blog/ep10.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Adam Silverstein for an insightful conversation about their journey at Google, ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -210,7 +210,7 @@ export const posts: BlogPost[] = [
     date: "Jul 17, 2022",
     readingTime: "5 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2022/07/13142746/Ep9.png",
+    img: "/images/blog/ep9.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Alexander Goller for an insightful conversation about their journey, ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -246,7 +246,7 @@ export const posts: BlogPost[] = [
     date: "Jul 15, 2022",
     readingTime: "5 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2025/11/01104222/Ep8.png",
+    img: "/images/blog/ep8.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Rogier Lankhorst for an insightful conversation about their journey, ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -282,7 +282,7 @@ export const posts: BlogPost[] = [
     date: "Jul 13, 2022",
     readingTime: "5 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2022/07/01141111/Episode-7.png",
+    img: "/images/blog/ep7.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Milana Cap for an insightful conversation about their journey, ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -316,7 +316,7 @@ export const posts: BlogPost[] = [
     date: "Jul 11, 2022",
     readingTime: "7 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2022/07/31122646/Episode-6.png",
+    img: "/images/blog/ep6.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Pádraig Cullen for an insightful conversation about their journey, ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -350,7 +350,7 @@ export const posts: BlogPost[] = [
     date: "Jul 9, 2022",
     readingTime: "3 min read",
     category: "WCEU 2022",
-    img: "https://wpshoutout.com/wp-content/uploads/2022/07/Episode-5.png",
+    img: "/images/blog/ep5.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Evangelia Pappa for an insightful conversation about their journey in UX, ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -380,7 +380,7 @@ export const posts: BlogPost[] = [
     date: "Jul 7, 2022",
     readingTime: "4 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2022/07/31103033/Episode-4.png",
+    img: "/images/blog/ep4.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Takis Bouyouris for an insightful conversation about their journey, ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -418,7 +418,7 @@ export const posts: BlogPost[] = [
     date: "Jul 5, 2022",
     readingTime: "11 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2022/07/31113823/Episode-3-1.png",
+    img: "/images/blog/ep3.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Sean Blakeley for an insightful conversation about their journey, ideas, career growth & leading technical teams. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -465,7 +465,7 @@ export const posts: BlogPost[] = [
     date: "Jul 3, 2022",
     readingTime: "11 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2022/07/31144224/Episode-2.png",
+    img: "/images/blog/ep2.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Niels Lange for an insightful conversation about their journey from the Netherlands to Automattic and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [
@@ -520,7 +520,7 @@ export const posts: BlogPost[] = [
     date: "Jul 1, 2022",
     readingTime: "8 min read",
     category: "WCEU 2022",
-    img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2025/11/24183538/Episode-1-2.png",
+    img: "/images/blog/ep1.png",
     excerpt: `As a proud media partner of WordCamp Europe 2022, we had the chance to sit down with Taeke Reijenga for an insightful conversation about their journey, ideas, and the future of WordPress. This episode captures the moments, thoughts, and stories that stood out. Here’s our full chat — enjoy reading! If you prefer listening, here’s our own media player, or listen to it on Spotify.`,
     body: [
     [

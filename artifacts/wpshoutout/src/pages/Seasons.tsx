@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { seasons, type Season } from "@/data/seasons";
 import { episodesBySeason } from "@/data/episodes";
 import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
+import { pub } from "@/lib/assets";
 
 function SeasonCard({ season, index }: { season: Season; index: number }) {
   const episodes = episodesBySeason[season.id] ?? [];
@@ -19,7 +20,7 @@ function SeasonCard({ season, index }: { season: Season; index: number }) {
       <Link href={`/season/${season.slug}`} className="block">
         <div className="relative aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-card border border-border/50 shadow-lg">
           <img
-            src={season.img}
+            src={pub(season.img)}
             alt={`${season.title} cover art`}
             loading={index < 3 ? "eager" : "lazy"}
             decoding="async"

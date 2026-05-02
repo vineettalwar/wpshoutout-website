@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { posts, postBySlug } from "@/data/blog";
 import NotFound from "@/pages/not-found";
+import { pub } from "@/lib/assets";
 import {
   useSeo,
   articleJsonLd,
@@ -61,7 +62,7 @@ export default function BlogPost() {
       {/* Hero */}
       <div className="relative w-full h-[50vh] min-h-[360px] max-h-[560px] overflow-hidden">
         <img
-          src={post.img}
+          src={pub(post.img)}
           alt={post.title}
           fetchPriority="high"
           decoding="async"
@@ -169,7 +170,7 @@ export default function BlogPost() {
               >
                 <div className="relative aspect-[16/9] overflow-hidden">
                   <img
-                    src={other.img}
+                    src={pub(other.img)}
                     alt={other.title}
                     loading="lazy"
                     decoding="async"

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { pub } from "@/lib/assets";
 
 export function NavBar() {
   const [location] = useLocation();
@@ -37,7 +38,7 @@ export function NavBar() {
       <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
         <Link href="/" aria-label="WP Shoutout — home" className="flex items-center gap-2 z-50">
           <img
-            src="https://cdn.firemudfm.com/media/wpshoutout/sites/5/2018/04/10165953/logo-stroked-2.png"
+            src={pub("/logo.png")}
             alt="WP Shoutout"
             width={130}
             height={40}

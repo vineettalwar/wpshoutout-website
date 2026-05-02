@@ -6,6 +6,7 @@ import { EpisodeRow } from "@/components/EpisodeRow";
 import { seasonBySlug, seasons } from "@/data/seasons";
 import { episodesBySeason } from "@/data/episodes";
 import NotFound from "@/pages/not-found";
+import { pub } from "@/lib/assets";
 import {
   useSeo,
   podcastSeasonJsonLd,
@@ -67,7 +68,7 @@ export default function Season() {
       {/* Hero with full-bleed cover image */}
       <div className="relative w-full h-[55vh] min-h-[420px] max-h-[640px] overflow-hidden">
         <img
-          src={season.img}
+          src={pub(season.img)}
           alt={`${season.title} cover art`}
           fetchPriority="high"
           decoding="async"

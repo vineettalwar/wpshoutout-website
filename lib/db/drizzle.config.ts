@@ -1,14 +1,21 @@
 import { defineConfig } from "drizzle-kit";
 import path from "path";
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL, ensure the database is provisioned");
+// DATABASE_URL is only required for commands that connect to the database
+// (migrate, push, pull, studio). For `generate`, it can be omitted.
+const needsDb = !process.argv.some((a) =>
+  ["generate", "check"].includes(a),
+);
+
+if (needsDb && !process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is required. Ensure the database is provisioned.");
 }
 
 export default defineConfig({
-  schema: path.join(__dirname, "./src/schema/index.ts"),
+  schema: "./src/schema/index.ts",
+  out: "./migrations",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DATABASE_URL ?? "postgres://localhost/placeholder",
   },
 });

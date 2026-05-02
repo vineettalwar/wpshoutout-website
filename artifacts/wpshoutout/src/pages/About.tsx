@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
+import { pub } from "@/lib/assets";
 
 export default function About() {
   useSeo({
@@ -24,12 +25,12 @@ export default function About() {
     ],
   });
   const gallery = [
-    "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21215002/image-5.jpg",
-    "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21215014/image-4.jpg",
-    "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21215025/image-2.jpg",
-    "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21215035/image-3.jpg",
-    "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21215048/image-6.jpg",
-    "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21215058/image-1.jpg",
+    pub("/images/about/gallery-5.jpg"),
+    pub("/images/about/gallery-4.jpg"),
+    pub("/images/about/gallery-2.jpg"),
+    pub("/images/about/gallery-3.jpg"),
+    pub("/images/about/gallery-6.jpg"),
+    pub("/images/about/gallery-1.jpg"),
   ];
 
   return (

@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Radio } from "lucide-react";
 import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
+import { pub } from "@/lib/assets";
 
 export default function Schedule() {
   useSeo({
@@ -69,7 +70,7 @@ export default function Schedule() {
           <h2 className="text-2xl font-bold font-display mb-6">What's Next?</h2>
           <div className="aspect-video w-full rounded-xl overflow-hidden bg-muted mb-8 relative group cursor-pointer border border-border">
             <img 
-              src="https://img.youtube.com/vi/Qg3UeUct_xY/maxresdefault.jpg" 
+              src={pub("/images/youtube-preview.jpg")} 
               alt="Video Preview" 
               className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500"
             />

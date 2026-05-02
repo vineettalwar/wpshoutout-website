@@ -12,11 +12,11 @@ export interface Episode {
 }
 
 const WCEU2022_COVER =
-  "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2024/01/30220919/Sparkle-1.jpg";
+  "/images/seasons/s9-wceu-2022.jpg";
 const GRAN_CANARIA_COVER =
-  "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21214927/WP-shoutout-season-1-cover.jpg";
+  "/images/seasons/s1-cover.jpg";
 const WCEU2019_COVER =
-  "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2019/06/29235041/WCEU-Berlin-2019.jpeg";
+  "/images/seasons/s8-wceu-2019.jpg";
 
 export const episodesBySeason: Record<number, Episode[]> = {
   9: [
@@ -232,7 +232,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 7,
       seasonTitle: "WC Ahmedabad 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/12/29235247/Wordcamp-Ahmedabad-2018.webp",
+        "/images/seasons/s7-wc-ahmedabad-2018.webp",
     },
     {
       id: "s7e2",
@@ -243,7 +243,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 7,
       seasonTitle: "WC Ahmedabad 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/12/29235247/Wordcamp-Ahmedabad-2018.webp",
+        "/images/seasons/s7-wc-ahmedabad-2018.webp",
     },
   ],
   6: [
@@ -256,7 +256,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 6,
       seasonTitle: "WC Bucharest 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/10/29235422/WC-Buc-2018.jpeg",
+        "/images/seasons/s6-wc-bucharest-2018.jpg",
     },
     {
       id: "s6e2",
@@ -267,7 +267,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 6,
       seasonTitle: "WC Bucharest 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/10/29235422/WC-Buc-2018.jpeg",
+        "/images/seasons/s6-wc-bucharest-2018.jpg",
     },
   ],
   5: [
@@ -280,7 +280,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 5,
       seasonTitle: "WC Lausanne 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/09/29235548/WCLausanne-2018.jpeg",
+        "/images/seasons/s5-wc-lausanne-2018.jpg",
     },
     {
       id: "s5e2",
@@ -291,7 +291,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 5,
       seasonTitle: "WC Lausanne 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/09/29235548/WCLausanne-2018.jpeg",
+        "/images/seasons/s5-wc-lausanne-2018.jpg",
     },
   ],
   4: [
@@ -304,7 +304,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 4,
       seasonTitle: "WC Würzburg 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/09/29235716/Wordcamp-Wurzburg-2018-banner-min.webp",
+        "/images/seasons/s4-wc-wuerzburg-2018.webp",
     },
     {
       id: "s4e2",
@@ -315,7 +315,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 4,
       seasonTitle: "WC Würzburg 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/09/29235716/Wordcamp-Wurzburg-2018-banner-min.webp",
+        "/images/seasons/s4-wc-wuerzburg-2018.webp",
     },
   ],
   3: [
@@ -328,7 +328,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 3,
       seasonTitle: "WC Poznan 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/07/29235820/WC-Poznan2018.jpeg",
+        "/images/seasons/s3-wc-poznan-2018.jpg",
     },
     {
       id: "s3e2",
@@ -339,7 +339,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 3,
       seasonTitle: "WC Poznan 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/07/29235820/WC-Poznan2018.jpeg",
+        "/images/seasons/s3-wc-poznan-2018.jpg",
     },
   ],
   2: [
@@ -352,7 +352,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 2,
       seasonTitle: "WC Europe 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/06/30000012/WC-EU-Belgrade-2018.jpeg",
+        "/images/seasons/s2-wc-europe-2018.jpg",
     },
     {
       id: "s2e2",
@@ -363,7 +363,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 2,
       seasonTitle: "WC Europe 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/06/30000012/WC-EU-Belgrade-2018.jpeg",
+        "/images/seasons/s2-wc-europe-2018.jpg",
     },
     {
       id: "s2e3",
@@ -374,7 +374,7 @@ export const episodesBySeason: Record<number, Episode[]> = {
       season: 2,
       seasonTitle: "WC Europe 2018",
       coverImg:
-        "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/06/30000012/WC-EU-Belgrade-2018.jpeg",
+        "/images/seasons/s2-wc-europe-2018.jpg",
     },
   ],
   1: [

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { pub } from "@/lib/assets";
 import {
   useSeo,
   organizationJsonLd,
@@ -115,7 +116,7 @@ export default function Home() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
               <img
-                src="https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21214927/WP-shoutout-season-1-cover.jpg"
+                src={pub("/images/seasons/s1-cover.jpg")}
                 alt="WP Shoutout Season 1 cover — recorded at WordCamp Gran Canaria"
                 loading="lazy"
                 decoding="async"
@@ -149,19 +150,19 @@ export default function Home() {
             {[
               {
                 title: "WC Europe 2022",
-                img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2024/01/30220919/Sparkle-1.jpg",
+                img: "/images/seasons/s9-wceu-2022.jpg",
               },
               {
                 title: "WC Europe 2019",
-                img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2019/06/29235041/WCEU-Berlin-2019.jpeg",
+                img: "/images/seasons/s8-wceu-2019.jpg",
               },
               {
                 title: "WC Ahmedabad 2018",
-                img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/12/29235247/Wordcamp-Ahmedabad-2018.webp",
+                img: "/images/seasons/s7-wc-ahmedabad-2018.webp",
               },
               {
                 title: "WC Bucharest 2018",
-                img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/10/29235422/WC-Buc-2018.jpeg",
+                img: "/images/seasons/s6-wc-bucharest-2018.jpg",
               },
             ].map((item, i) => (
               <motion.div
@@ -173,7 +174,7 @@ export default function Home() {
                 className="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer bg-card"
               >
                 <img
-                  src={item.img}
+                  src={pub(item.img)}
                   alt={item.title}
                   loading="lazy"
                   decoding="async"
@@ -240,17 +241,17 @@ export default function Home() {
               {
                 name: "Vineet Talwar",
                 role: "Partner, Shouter",
-                img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/30001636/Vineet_Talwar_bnw.jpg",
+                img: "/images/team/vineet-talwar.jpg",
               },
               {
                 name: "Ashutosh Gaur",
                 role: "Shouter Season 2 & 7",
-                img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/06/21215210/ashutosh-team-member-e1648592353311.jpg",
+                img: "/images/team/ashutosh-gaur.jpg",
               },
               {
                 name: "This could be you!",
                 role: "Join the Team",
-                img: "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/06/21215234/new-team-member.jpg",
+                img: "/images/team/new-member.jpg",
               },
             ].map((member, i) => (
               <motion.div
@@ -264,7 +265,7 @@ export default function Home() {
                 <div className="w-40 h-40 rounded-full overflow-hidden mb-6 border-2 border-border p-1">
                   <div className="w-full h-full rounded-full overflow-hidden bg-muted">
                     <img
-                      src={member.img}
+                      src={pub(member.img)}
                       alt={`${member.name} — WP Shoutout shouter`}
                       loading="lazy"
                       decoding="async"
@@ -317,7 +318,7 @@ export default function Home() {
                 className="block w-full h-full group"
               >
                 <img
-                  src={`https://img.youtube.com/vi/Qg3UeUct_xY/hqdefault.jpg`}
+                  src={pub("/images/youtube-preview.jpg")}
                   alt="WP Shoutout on YouTube — video thumbnail"
                   loading="lazy"
                   decoding="async"
