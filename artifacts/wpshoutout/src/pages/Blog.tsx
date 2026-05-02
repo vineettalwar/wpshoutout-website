@@ -13,11 +13,12 @@ export default function Blog() {
           className="mb-20 max-w-2xl"
         >
           <h1 className="text-5xl md:text-7xl font-display font-bold mb-6">
-            Editorial
+            Interviews
           </h1>
           <p className="text-xl text-muted-foreground">
-            Thoughts on podcasting, community building, and the global WordPress
-            ecosystem.
+            Read the full transcripts from our WordCamp Europe 2022
+            conversations — thirteen interviews with the people building the
+            open web.
           </p>
         </motion.div>
 
@@ -50,11 +51,11 @@ export default function Blog() {
                 <h2 className="text-2xl font-bold font-display mb-3 group-hover:text-primary transition-colors">
                   {post.title}
                 </h2>
-                <p className="text-muted-foreground leading-relaxed mb-4">
+                <p className="text-muted-foreground leading-relaxed mb-4 line-clamp-3">
                   {post.excerpt}
                 </p>
                 <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                  Read Article
+                  Read Interview
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
               </Link>

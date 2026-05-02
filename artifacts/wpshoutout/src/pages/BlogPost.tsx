@@ -25,7 +25,7 @@ export default function BlogPost() {
           alt={post.title}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/75 to-background" />
 
         <div className="relative h-full container px-4 md:px-8 flex flex-col justify-end pb-12 max-w-3xl">
           <Link
@@ -33,7 +33,7 @@ export default function BlogPost() {
             className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-6 w-fit"
           >
             <ArrowLeft className="h-4 w-4" />
-            All Posts
+            All Interviews
           </Link>
 
           <motion.div
@@ -44,7 +44,7 @@ export default function BlogPost() {
             <div className="inline-block bg-primary/20 border border-primary/40 backdrop-blur-md text-primary px-3 py-1 rounded-full text-xs font-bold mb-4">
               {post.category}
             </div>
-            <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 leading-tight">
+            <h1 className="text-3xl md:text-5xl font-display font-bold mb-6 leading-tight">
               {post.title}
             </h1>
             <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-muted-foreground">
@@ -67,20 +67,48 @@ export default function BlogPost() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="space-y-6"
         >
-          <p className="text-xl md:text-2xl text-foreground/90 leading-relaxed font-medium">
-            {post.excerpt}
-          </p>
-          <div className="border-t border-border my-8" />
-          {post.body.map((paragraph, i) => (
-            <p
-              key={i}
-              className="text-base md:text-lg text-muted-foreground leading-relaxed"
-            >
-              {paragraph}
+          {/* Intro */}
+          <div className="bg-primary/5 border-l-4 border-primary rounded-r-xl px-6 py-5 mb-12">
+            <p className="text-base md:text-lg text-foreground/90 leading-relaxed">
+              {post.excerpt}
             </p>
-          ))}
+          </div>
+
+          {/* Q&A sections */}
+          <div className="space-y-12">
+            {post.body.map((section, sectionIdx) => (
+              <section
+                key={sectionIdx}
+                className={
+                  sectionIdx % 2 === 1
+                    ? "bg-card border border-border rounded-2xl p-6 md:p-8"
+                    : ""
+                }
+              >
+                <div className="space-y-5">
+                  {section.map((block, i) =>
+                    block.kind === "q" ? (
+                      <p
+                        key={i}
+                        className="text-lg md:text-xl font-semibold text-foreground leading-snug pt-4 first:pt-0"
+                      >
+                        <span className="text-primary mr-2">Q.</span>
+                        {block.text}
+                      </p>
+                    ) : (
+                      <p
+                        key={i}
+                        className="text-base md:text-lg text-muted-foreground leading-relaxed"
+                      >
+                        {block.text}
+                      </p>
+                    ),
+                  )}
+                </div>
+              </section>
+            ))}
+          </div>
         </motion.div>
       </article>
 
@@ -123,7 +151,7 @@ export default function BlogPost() {
                 className="rounded-full border-border/50 hover:border-primary hover:text-primary"
               >
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Editorial
+                Back to All Interviews
               </Button>
             </Link>
           </div>
