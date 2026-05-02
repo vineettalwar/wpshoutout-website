@@ -12,6 +12,7 @@ import Schedule from "@/pages/Schedule";
 import JoinUs from "@/pages/JoinUs";
 import Blog from "@/pages/Blog";
 import Contact from "@/pages/Contact";
+import { PlayerProvider } from "@/context/PlayerContext";
 
 const queryClient = new QueryClient();
 
@@ -36,10 +37,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-          <Router />
-        </WouterRouter>
-        <Toaster />
+        <PlayerProvider>
+          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+            <Router />
+          </WouterRouter>
+          <Toaster />
+        </PlayerProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
