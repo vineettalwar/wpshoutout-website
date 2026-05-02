@@ -6,13 +6,13 @@ on:
   pull_request:
     branches: [main]
 
-# Required for GitHub Pages deployment
+# Required for OIDC-based GitHub Pages deployment (no stored tokens needed)
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Only one deployment runs at a time; in-progress ones are cancelled
+# Only one deployment at a time; cancel in-progress runs on new push
 concurrency:
   group: pages
   cancel-in-progress: true
@@ -46,11 +46,32 @@ jobs:
       - name: Type-check API server
         run: pnpm --filter @workspace/api-server run typecheck
 
+      # ── Resolve the Pages base path ──────────────────────────────────────
+      # Default: derive from repo name so assets load at /<repo>/ on GitHub Pages.
+      # Override: set a repository variable PAGES_BASE_PATH (e.g. "/" for a
+      # custom domain or org/user site, or "/my-repo/" for a project site).
+      - name: Resolve BASE_PATH
+        id: base_path
+        run: |
+          if [ -n "${{ vars.PAGES_BASE_PATH }}" ]; then
+            BASE_PATH="${{ vars.PAGES_BASE_PATH }}"
+          else
+            REPO_NAME="${GITHUB_REPOSITORY##*/}"
+            BASE_PATH="/${REPO_NAME}/"
+          fi
+          echo "value=${BASE_PATH}" >> $GITHUB_OUTPUT
+
       - name: Build frontend
         env:
           PORT: "3000"
-          BASE_PATH: "/"
+          BASE_PATH: ${{ steps.base_path.outputs.value }}
           NODE_ENV: production
+          # VITE_API_BASE_URL: full URL of the deployed API server, e.g.
+          #   https://wpshoutout.replit.app
+          # Set this as a GitHub secret named API_BASE_URL in your repo settings.
+          # If unset, the frontend falls back to a same-origin relative path (works
+          # when frontend and API are served from the same host, e.g. Replit).
+          VITE_API_BASE_URL: ${{ secrets.API_BASE_URL }}
         run: pnpm --filter @workspace/wpshoutout run build
 
       - name: Build API server
@@ -58,19 +79,23 @@ jobs:
           NODE_ENV: production
         run: pnpm --filter @workspace/api-server run build
 
-      # Upload the built frontend so the deploy job can use it
+      # SPA fallback: GitHub Pages serves 404.html for unknown paths.
+      # Copying index.html → 404.html lets Wouter handle all client-side routes.
+      - name: Add SPA 404 fallback
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: cp artifacts/wpshoutout/dist/public/index.html artifacts/wpshoutout/dist/public/404.html
+
       - name: Upload Pages artifact
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
         with:
           path: artifacts/wpshoutout/dist/public
 
-  # ─── CD: deploy frontend to GitHub Pages on every merge to main ─────────────
+  # ─── CD: deploy to GitHub Pages on every merge to main ─────────────────────
   deploy:
     name: Deploy to GitHub Pages
     needs: validate
     runs-on: ubuntu-latest
-    # Only deploy on direct pushes to main (not PRs)
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment:
       name: github-pages
