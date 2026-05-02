@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "WP Shoutout"
+version = "1.0.0"
+id = "artifacts/wpshoutout"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23409
+
+[services.development]
+run = "pnpm --filter @workspace/wpshoutout run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/wpshoutout", "run", "build" ]
+publicDir = "artifacts/wpshoutout/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23409"
+BASE_PATH = "/"
