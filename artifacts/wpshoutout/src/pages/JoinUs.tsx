@@ -2,8 +2,28 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Mic, Globe, Users, Zap } from "lucide-react";
+import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
 
 export default function JoinUs() {
+  useSeo({
+    title: "Join Us — Become a Shouter",
+    description:
+      "Take the mic with WP Shoutout. We're looking for hosts, contributors, and partners across the global WordPress community. Apply to become a Shouter.",
+    path: "/join-us",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Join Us — WP Shoutout",
+        url: `${SITE.url}/join-us`,
+        inLanguage: SITE.language,
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Join Us", path: "/join-us" },
+      ]),
+    ],
+  });
   const perks = [
     { icon: Mic, title: "Share the Mic", desc: "Host interviews, guide conversations, and bring your unique voice to the global stage." },
     { icon: Globe, title: "Global Reach", desc: "Connect with the worldwide WordPress community and broadcast from international WordCamps." },

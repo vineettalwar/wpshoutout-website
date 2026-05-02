@@ -1,8 +1,16 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { useSeo } from "@/lib/seo";
 
 export default function NotFound() {
+  useSeo({
+    title: "Page Not Found",
+    description: "The page you're looking for doesn't exist.",
+    path: "/404",
+    noindex: true,
+  });
+
   return (
     <div className="min-h-screen w-full flex items-center justify-center">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(26,188,156,0.06)_0%,transparent_60%)]" />

@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { Megaphone, Handshake, Newspaper, UserPlus, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -17,6 +18,26 @@ const formSchema = z.object({
 });
 
 export default function Contact() {
+  useSeo({
+    title: "Contact",
+    description:
+      "Get in touch with WP Shoutout. Whether you want to sponsor a season, advertise, collaborate, send a PR pitch, or join the team, we'd love to hear from you.",
+    path: "/contact",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        name: "Contact WP Shoutout",
+        url: `${SITE.url}/contact`,
+        inLanguage: SITE.language,
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Contact", path: "/contact" },
+      ]),
+    ],
+  });
+
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 

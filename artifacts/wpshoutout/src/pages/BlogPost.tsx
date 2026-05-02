@@ -4,11 +4,51 @@ import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { posts, postBySlug } from "@/data/blog";
 import NotFound from "@/pages/not-found";
+import {
+  useSeo,
+  articleJsonLd,
+  breadcrumbJsonLd,
+  toIsoDate,
+  SITE,
+} from "@/lib/seo";
 
 export default function BlogPost() {
   const [, params] = useRoute("/blog/:slug");
   const slug = params?.slug ?? "";
   const post = postBySlug[slug];
+
+  useSeo(
+    post
+      ? {
+          title: post.title,
+          description: post.excerpt.slice(0, 200),
+          path: `/blog/${post.slug}`,
+          image: post.img,
+          type: "article",
+          publishedTime: toIsoDate(post.date),
+          jsonLd: [
+            articleJsonLd({
+              headline: post.title,
+              description: post.excerpt.slice(0, 300),
+              url: `${SITE.url}/blog/${post.slug}`,
+              image: post.img,
+              datePublished: toIsoDate(post.date),
+              authorName: "Vineet Talwar",
+            }),
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Interviews", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ]),
+          ],
+        }
+      : {
+          title: "Interview not found",
+          description: "The interview you're looking for doesn't exist.",
+          path: `/blog/${slug}`,
+          noindex: true,
+        },
+  );
 
   if (!post) {
     return <NotFound />;
@@ -23,6 +63,8 @@ export default function BlogPost() {
         <img
           src={post.img}
           alt={post.title}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/75 to-background" />
@@ -129,6 +171,8 @@ export default function BlogPost() {
                   <img
                     src={other.img}
                     alt={other.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                   />
                 </div>

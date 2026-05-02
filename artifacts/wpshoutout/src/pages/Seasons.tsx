@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { seasons, type Season } from "@/data/seasons";
 import { episodesBySeason } from "@/data/episodes";
+import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
 
 function SeasonCard({ season, index }: { season: Season; index: number }) {
   const episodes = episodesBySeason[season.id] ?? [];
@@ -19,7 +20,9 @@ function SeasonCard({ season, index }: { season: Season; index: number }) {
         <div className="relative aspect-video md:aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-card border border-border/50 shadow-lg">
           <img
             src={season.img}
-            alt={season.title}
+            alt={`${season.title} cover art`}
+            loading={index < 3 ? "eager" : "lazy"}
+            decoding="async"
             className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
           />
           <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
@@ -50,6 +53,34 @@ function SeasonCard({ season, index }: { season: Season; index: number }) {
 }
 
 export default function Seasons() {
+  useSeo({
+    title: "All Seasons",
+    description:
+      "Nine seasons of deep dives, backstage stories, and real conversations from WordCamps around the world — from Gran Canaria to Porto, Berlin, Lausanne, and beyond.",
+    path: "/seasons",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: "All Seasons — WP Shoutout",
+        url: `${SITE.url}/seasons`,
+        description:
+          "Browse all nine seasons of WP Shoutout, recorded live at WordCamps across the globe.",
+        inLanguage: SITE.language,
+        hasPart: seasons.map((s) => ({
+          "@type": "PodcastSeason",
+          seasonNumber: s.id,
+          name: s.title,
+          url: `${SITE.url}/season/${s.slug}`,
+        })),
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Seasons", path: "/seasons" },
+      ]),
+    ],
+  });
+
   return (
     <div className="w-full pt-32 pb-40">
       <div className="container px-4 md:px-8">

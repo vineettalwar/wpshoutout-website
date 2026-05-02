@@ -2,6 +2,12 @@ import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import {
+  useSeo,
+  organizationJsonLd,
+  websiteJsonLd,
+  podcastSeriesJsonLd,
+} from "@/lib/seo";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -17,6 +23,15 @@ const itemVariants: Variants = {
 };
 
 export default function Home() {
+  useSeo({
+    title: "WP Shoutout — The WordPress Community Podcast",
+    titleOverride: "WP Shoutout — The WordPress Community Podcast",
+    description:
+      "The backstage pass to the global WordPress community. Intimate interviews, world travel, real stories — broadcast live from WordCamps around the world.",
+    path: "/",
+    jsonLd: [websiteJsonLd(), organizationJsonLd(), podcastSeriesJsonLd()],
+  });
+
   return (
     <div className="w-full">
       {/* Hero */}
@@ -101,7 +116,9 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
               <img
                 src="https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21214927/WP-shoutout-season-1-cover.jpg"
-                alt="Season 1 Cover"
+                alt="WP Shoutout Season 1 cover — recorded at WordCamp Gran Canaria"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute bottom-8 left-8 right-8 z-20">
@@ -158,6 +175,8 @@ export default function Home() {
                 <img
                   src={item.img}
                   alt={item.title}
+                  loading="lazy"
+                  decoding="async"
                   className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80" />
@@ -246,7 +265,9 @@ export default function Home() {
                   <div className="w-full h-full rounded-full overflow-hidden bg-muted">
                     <img
                       src={member.img}
-                      alt={member.name}
+                      alt={`${member.name} — WP Shoutout shouter`}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
                     />
                   </div>
@@ -297,7 +318,9 @@ export default function Home() {
               >
                 <img
                   src={`https://img.youtube.com/vi/Qg3UeUct_xY/hqdefault.jpg`}
-                  alt="WP Shoutout on YouTube"
+                  alt="WP Shoutout on YouTube — video thumbnail"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">

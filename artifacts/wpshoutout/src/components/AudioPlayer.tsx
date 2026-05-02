@@ -26,7 +26,11 @@ export function AudioPlayer() {
 
   if (!currentEpisode) {
     return (
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-xl border-t border-border p-4 shadow-2xl">
+      <div
+        role="region"
+        aria-label="Audio player (no episode selected)"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-xl border-t border-border p-4 shadow-2xl"
+      >
         <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4 w-full md:w-1/3">
             <div className="h-12 w-12 rounded bg-muted flex items-center justify-center overflow-hidden flex-shrink-0">
@@ -54,24 +58,27 @@ export function AudioPlayer() {
                 size="icon"
                 className="text-muted-foreground"
                 disabled
+                aria-label="Previous episode"
               >
-                <SkipBack className="h-5 w-5 fill-current" />
+                <SkipBack className="h-5 w-5 fill-current" aria-hidden="true" />
               </Button>
               <Button
                 variant="secondary"
                 size="icon"
                 className="h-12 w-12 rounded-full bg-foreground/10 text-foreground/30"
                 disabled
+                aria-label="Play"
               >
-                <Play className="h-6 w-6 fill-current ml-1" />
+                <Play className="h-6 w-6 fill-current ml-1" aria-hidden="true" />
               </Button>
               <Button
                 variant="ghost"
                 size="icon"
                 className="text-muted-foreground"
                 disabled
+                aria-label="Next episode"
               >
-                <SkipForward className="h-5 w-5 fill-current" />
+                <SkipForward className="h-5 w-5 fill-current" aria-hidden="true" />
               </Button>
             </div>
             <div className="flex items-center gap-2 w-full max-w-md">
@@ -86,8 +93,15 @@ export function AudioPlayer() {
           </div>
 
           <div className="hidden md:flex items-center justify-end gap-2 w-1/3">
-            <Volume2 className="h-5 w-5 text-muted-foreground" />
-            <div className="h-1.5 w-24 bg-muted rounded-full overflow-hidden">
+            <Volume2 className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
+            <div
+              role="progressbar"
+              aria-label="Volume"
+              aria-valuenow={50}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              className="h-1.5 w-24 bg-muted rounded-full overflow-hidden"
+            >
               <div className="h-full w-1/2 bg-primary"></div>
             </div>
           </div>
@@ -97,7 +111,11 @@ export function AudioPlayer() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-xl border-t border-border shadow-2xl">
+    <div
+      role="region"
+      aria-label={`Audio player — ${currentEpisode.guest}, ${currentEpisode.seasonTitle}, episode ${currentEpisode.num}`}
+      className="fixed bottom-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-xl border-t border-border shadow-2xl"
+    >
       {currentEpisode.spotifyId && (
         <div className="w-full">
           <iframe
@@ -141,8 +159,9 @@ export function AudioPlayer() {
                 className="text-muted-foreground hover:text-foreground"
                 disabled={!prevEpisode}
                 onClick={() => prevEpisode && setCurrentEpisode(prevEpisode)}
+                aria-label="Previous episode"
               >
-                <SkipBack className="h-5 w-5 fill-current" />
+                <SkipBack className="h-5 w-5 fill-current" aria-hidden="true" />
               </Button>
               <div className="flex items-center justify-center h-12 w-12 rounded-full bg-muted/50 text-muted-foreground text-xs text-center px-1">
                 No audio
@@ -153,8 +172,9 @@ export function AudioPlayer() {
                 className="text-muted-foreground hover:text-foreground"
                 disabled={!nextEpisode}
                 onClick={() => nextEpisode && setCurrentEpisode(nextEpisode)}
+                aria-label="Next episode"
               >
-                <SkipForward className="h-5 w-5 fill-current" />
+                <SkipForward className="h-5 w-5 fill-current" aria-hidden="true" />
               </Button>
             </div>
           </div>
@@ -175,8 +195,9 @@ export function AudioPlayer() {
               size="icon"
               className="text-muted-foreground hover:text-foreground"
               onClick={() => setCurrentEpisode(null)}
+              aria-label="Close player"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4" aria-hidden="true" />
             </Button>
           </div>
         </div>
@@ -210,8 +231,9 @@ export function AudioPlayer() {
               disabled={!prevEpisode}
               onClick={() => prevEpisode && setCurrentEpisode(prevEpisode)}
               title="Previous episode"
+              aria-label="Previous episode"
             >
-              <SkipBack className="h-4 w-4 fill-current" />
+              <SkipBack className="h-4 w-4 fill-current" aria-hidden="true" />
             </Button>
             <Button
               variant="ghost"
@@ -220,8 +242,9 @@ export function AudioPlayer() {
               disabled={!nextEpisode}
               onClick={() => nextEpisode && setCurrentEpisode(nextEpisode)}
               title="Next episode"
+              aria-label="Next episode"
             >
-              <SkipForward className="h-4 w-4 fill-current" />
+              <SkipForward className="h-4 w-4 fill-current" aria-hidden="true" />
             </Button>
             {currentEpisode.episodeUrl && (
               <a
@@ -229,9 +252,10 @@ export function AudioPlayer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-foreground"
-                title="Open episode page"
+                title="Open episode page on wpshoutout.com"
+                aria-label="Open episode page on wpshoutout.com"
               >
-                <ExternalLink className="h-4 w-4" />
+                <ExternalLink className="h-4 w-4" aria-hidden="true" />
               </a>
             )}
             <Button
@@ -240,8 +264,9 @@ export function AudioPlayer() {
               className="h-7 w-7 text-muted-foreground hover:text-foreground"
               onClick={() => setCurrentEpisode(null)}
               title="Close player"
+              aria-label="Close player"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4" aria-hidden="true" />
             </Button>
           </div>
         </div>

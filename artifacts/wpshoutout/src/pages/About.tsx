@@ -1,8 +1,28 @@
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
+import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
 
 export default function About() {
+  useSeo({
+    title: "About",
+    description:
+      "WP Shoutout is a podcast (previously an online radio show on FireMud FM) powered by WordPress. Learn the story behind the show, our shouters, and our community.",
+    path: "/about",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        name: "About WP Shoutout",
+        url: `${SITE.url}/about`,
+        inLanguage: SITE.language,
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "About", path: "/about" },
+      ]),
+    ],
+  });
   const gallery = [
     "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21215002/image-5.jpg",
     "https://s3.ap-south-1.amazonaws.com/static.wpshoutout.com/media/wp-content/uploads/2018/04/21215014/image-4.jpg",
@@ -75,9 +95,11 @@ export default function About() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
               className={`rounded-xl overflow-hidden bg-card ${i === 0 || i === 3 ? "md:col-span-2 md:row-span-2 aspect-video md:aspect-auto" : "aspect-square"}`}
             >
-              <img 
-                src={src} 
-                alt="Community moment" 
+              <img
+                src={src}
+                alt="WP Shoutout community moment"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-500"
               />
             </motion.div>

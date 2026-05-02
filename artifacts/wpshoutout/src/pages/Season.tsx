@@ -6,17 +6,54 @@ import { EpisodeRow } from "@/components/EpisodeRow";
 import { seasonBySlug, seasons } from "@/data/seasons";
 import { episodesBySeason } from "@/data/episodes";
 import NotFound from "@/pages/not-found";
+import {
+  useSeo,
+  podcastSeasonJsonLd,
+  breadcrumbJsonLd,
+  SITE,
+} from "@/lib/seo";
 
 export default function Season() {
   const [, params] = useRoute("/season/:slug");
   const slug = params?.slug ?? "";
   const season = seasonBySlug[slug];
 
+  const episodes = season ? episodesBySeason[season.id] ?? [] : [];
+
+  useSeo(
+    season
+      ? {
+          title: `${season.title} — Season ${season.id}`,
+          description: season.description,
+          path: `/season/${season.slug}`,
+          image: season.img,
+          jsonLd: [
+            podcastSeasonJsonLd({
+              number: season.id,
+              name: season.title,
+              url: `${SITE.url}/season/${season.slug}`,
+              image: season.img,
+              description: season.description,
+              numberOfEpisodes: episodes.length,
+            }),
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Seasons", path: "/seasons" },
+              { name: season.title, path: `/season/${season.slug}` },
+            ]),
+          ],
+        }
+      : {
+          title: "Season not found",
+          description: "The season you're looking for doesn't exist.",
+          path: `/season/${slug}`,
+          noindex: true,
+        },
+  );
+
   if (!season) {
     return <NotFound />;
   }
-
-  const episodes = episodesBySeason[season.id] ?? [];
 
   const currentIndex = seasons.findIndex((s) => s.id === season.id);
   const newer = currentIndex > 0 ? seasons[currentIndex - 1] : null;
@@ -31,7 +68,9 @@ export default function Season() {
       <div className="relative w-full h-[55vh] min-h-[420px] max-h-[640px] overflow-hidden">
         <img
           src={season.img}
-          alt={season.title}
+          alt={`${season.title} cover art`}
+          fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />

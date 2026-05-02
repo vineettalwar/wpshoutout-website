@@ -2,8 +2,28 @@ import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Radio } from "lucide-react";
+import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
 
 export default function Schedule() {
+  useSeo({
+    title: "Broadcast Schedule",
+    description:
+      "WP Shoutout is currently off air and on pause. If you're interested in coverage of an upcoming WordCamp or community event, get in touch with our team.",
+    path: "/schedule",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: "Schedule — WP Shoutout",
+        url: `${SITE.url}/schedule`,
+        inLanguage: SITE.language,
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Schedule", path: "/schedule" },
+      ]),
+    ],
+  });
   return (
     <div className="w-full pt-32 pb-24 min-h-screen flex flex-col">
       <div className="container px-4 md:px-8 flex-grow flex flex-col items-center justify-center max-w-4xl mx-auto text-center">

@@ -2,8 +2,37 @@ import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { posts } from "@/data/blog";
+import { useSeo, breadcrumbJsonLd, SITE } from "@/lib/seo";
 
 export default function Blog() {
+  useSeo({
+    title: "Interviews — WordCamp Europe 2022",
+    description:
+      "Read the full transcripts from our WordCamp Europe 2022 conversations — thirteen long-form interviews with the people building the open web.",
+    path: "/blog",
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        name: "WP Shoutout Interviews",
+        url: `${SITE.url}/blog`,
+        description:
+          "Long-form interviews with members of the global WordPress community.",
+        inLanguage: SITE.language,
+        blogPost: posts.map((p) => ({
+          "@type": "BlogPosting",
+          headline: p.title,
+          url: `${SITE.url}/blog/${p.slug}`,
+          image: p.img,
+        })),
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Interviews", path: "/blog" },
+      ]),
+    ],
+  });
+
   return (
     <div className="w-full pt-32 pb-24">
       <div className="container px-4 md:px-8">
@@ -37,6 +66,8 @@ export default function Blog() {
                   <img
                     src={post.img}
                     alt={post.title}
+                    loading={i < 2 ? "eager" : "lazy"}
+                    decoding="async"
                     className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                   />
                   <div className="absolute top-4 left-4 bg-background/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-primary border border-border">
