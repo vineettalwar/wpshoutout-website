@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: wpshoutout-api
+    runtime: node
+    # Build from repo root so pnpm can resolve workspace packages
+    # (@workspace/api-zod, @workspace/db, etc.)
+    buildCommand: pnpm install --frozen-lockfile && pnpm --filter @workspace/api-server run build
+    startCommand: node --enable-source-maps ./artifacts/api-server/dist/index.mjs
+    healthCheckPath: /api/healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: CONTACT_EMAIL
+        value: hello@wpshoutout.com
+      - key: CONTACT_FROM_EMAIL
+        value: "WP Shoutout <noreply@wpshoutout.com>"
+      # Set these in the Render dashboard — do NOT commit real values here
+      - key: RESEND_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false

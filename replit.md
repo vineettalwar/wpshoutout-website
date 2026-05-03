@@ -267,6 +267,30 @@ Code merge to main
                 Platform pulls latest code and rebuilds
 ```
 
+## API Server Deployment
+
+The API server can be hosted on Replit (recommended — no extra account) or Render.
+
+### Option A — Replit (recommended)
+
+The API server artifact is already configured for Replit autoscale deployment. Click **Publish** in the workspace to deploy all artifacts together. After publishing, set the Replit production URL (e.g. `https://wpshoutout.replit.app`) as the `API_BASE_URL` GitHub Actions secret. No `API_DEPLOY_HOOK` is needed — the CI job will warn but not fail.
+
+### Option B — Render
+
+`render.yaml` at the repo root defines the Render web service. Render detects it automatically when you connect the repo.
+
+**Critical:** The build must run from the **repo root** (not `artifacts/api-server`) so pnpm can resolve workspace packages. The `render.yaml` is pre-configured correctly.
+
+Required GitHub Actions secrets:
+- `API_BASE_URL` — full URL of the Render service (e.g. `https://wpshoutout-api.onrender.com`)
+- `API_DEPLOY_HOOK` — deploy hook URL from Render dashboard → service → Settings → Deploy Hook
+
+Required Render environment variables (set in dashboard, not committed):
+- `RESEND_API_KEY` — from resend.com → API Keys
+- `DATABASE_URL` — PostgreSQL connection string
+
+See `docs/admin.md` → "API Server Deployment" for full setup steps.
+
 ---
 
 ## Adding a New Artifact

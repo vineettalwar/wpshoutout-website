@@ -213,10 +213,11 @@ The frontend deploys automatically on every push to `main`.
 ### One-time setup (if starting from scratch)
 1. Push the repo to GitHub
 2. Go to **Settings → Pages → Source** → select **GitHub Actions**
-3. Add these secrets under **Settings → Secrets and variables → Actions**:
-   - `API_BASE_URL` — full URL of the deployed API server (e.g. `https://api.wpshoutout.com`)
-   - `API_DEPLOY_HOOK` — deploy hook URL from your API host
-4. (Optional) Add the variable `PAGES_BASE_PATH = /` if using a custom domain at root
+3. Deploy the API server (see next section) and get its public URL
+4. Add these secrets under **Settings → Secrets and variables → Actions**:
+   - `API_BASE_URL` — full URL of the deployed API server (e.g. `https://wpshoutout-api.onrender.com` or your Replit `.replit.app` URL)
+   - `API_DEPLOY_HOOK` — deploy hook URL from your API host (omit if hosting on Replit — the CI job warns but doesn't fail)
+5. (Optional) Add the variable `PAGES_BASE_PATH = /` if using a custom domain at root
 
 ### Manual deployment trigger
 If you need to trigger a deployment without a code push:
@@ -229,25 +230,45 @@ If you need to trigger a deployment without a code push:
 
 ---
 
-## API Server Deployment (Render)
+## API Server Deployment
 
-### Initial setup
+### Option A — Replit (recommended, no extra account needed)
+
+The API server is already configured for Replit deployment. The Replit project deploys all artifacts (frontend + API) together.
+
+1. In the Replit workspace, click **Publish** (or use the Deploy button)
+2. Choose **Autoscale** — the API server is stateless and well-suited for autoscale
+3. After publishing, note the production URL (e.g. `https://wpshoutout.replit.app`)
+4. The API is served at `<production-url>/api` — set that base URL in GitHub Actions:
+   - `API_BASE_URL` = `https://wpshoutout.replit.app` (no `/api` suffix — the frontend appends `/api/contact` itself)
+5. Replit does not provide a deploy hook URL — leave `API_DEPLOY_HOOK` unset in GitHub Actions. The CI job will warn but will not fail, and the API redeploys automatically whenever you publish from Replit.
+
+> **Note:** With Replit hosting, the GitHub Pages frontend (`API_BASE_URL`) points to your Replit production URL for API calls, while static pages are served by GitHub Pages.
+
+### Option B — Render
+
+A `render.yaml` at the repo root defines the Render service configuration. Render detects it automatically when you connect the repo.
+
 1. Create a new **Web Service** on [render.com](https://render.com)
 2. Connect the GitHub repo
-3. Set **Root Directory** to `artifacts/api-server`
-4. **Build command:** `pnpm install && pnpm run build`
-5. **Start command:** `node --enable-source-maps ./dist/index.mjs`
-6. Set environment variables:
-   - `NODE_ENV=production`
+3. Render will detect `render.yaml` and pre-fill the settings. Confirm:
+   - **Root Directory:** *(leave blank — must build from repo root for pnpm workspace packages to resolve)*
+   - **Build command:** `pnpm install --frozen-lockfile && pnpm --filter @workspace/api-server run build`
+   - **Start command:** `node --enable-source-maps ./artifacts/api-server/dist/index.mjs`
+   - **Health Check Path:** `/api/healthz`
+4. Set these environment variables in the Render dashboard (the others come from `render.yaml`):
    - `DATABASE_URL=<your-postgres-url>`
    - `RESEND_API_KEY=<your-resend-key>`
-   - `CONTACT_EMAIL=hello@wpshoutout.com`
-   - `CONTACT_FROM_EMAIL=WP Shoutout <noreply@wpshoutout.com>`
-7. Note the **Deploy Hook URL** from Settings → Deploy Hook
-8. Add that URL as the `API_DEPLOY_HOOK` secret in GitHub Actions
+5. Note the **Deploy Hook URL** from Settings → Deploy Hook
+6. Add that URL as the `API_DEPLOY_HOOK` secret in GitHub Actions
+7. Add the service's public URL (e.g. `https://wpshoutout-api.onrender.com`) as the `API_BASE_URL` secret in GitHub Actions
+
+> **Important:** Do NOT set Root Directory to `artifacts/api-server`. The build must run from the repo root so pnpm can resolve workspace packages (`@workspace/api-zod`, `@workspace/db`). Setting a subdirectory root will cause the build to fail with "workspace package not found" errors.
 
 ### Rollback an API deployment
-In the Render dashboard, go to the service → **Events** → find a previous successful deploy → click **Rollback to this deploy**.
+- **Replit:** Use checkpoints in the Replit workspace to roll back to a previous version, then republish.
+- **Render:** Dashboard → service → **Events** → find a previous successful deploy → click **Rollback to this deploy**.
 
 ### Checking API server logs
-Render dashboard → service → **Logs** tab. Logs are in structured JSON (Pino format). Use Render's log filter to search by level: `{"level":50}` for errors.
+- **Replit:** Use the deployment logs tab in the Replit workspace, or the **Logs** tab on the published app.
+- **Render:** Dashboard → service → **Logs** tab. Logs are in structured JSON (Pino format). Use Render's log filter to search by level: `{"level":50}` for errors.
