@@ -16,7 +16,7 @@ export function Layout({ children }: { children: ReactNode }) {
       <main
         id="main-content"
         tabIndex={-1}
-        className="flex-1 pb-32 overflow-x-hidden focus:outline-none"
+        className="min-w-0 flex-1 pb-32 overflow-x-hidden focus:outline-none"
       >
         <PageTransition locationKey={location}>{children}</PageTransition>
       </main>

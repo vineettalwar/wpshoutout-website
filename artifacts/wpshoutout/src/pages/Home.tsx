@@ -3,6 +3,7 @@ import type { Variants } from "framer-motion";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { pub } from "@/lib/assets";
+import { seasons } from "@/data/seasons";
 import {
   useSeo,
   organizationJsonLd,
@@ -34,7 +35,7 @@ export default function Home() {
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0">
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(26,188,156,0.08)_0%,transparent_55%)]" />
@@ -90,12 +91,13 @@ export default function Home() {
       {/* Season 1 Featured Highlight */}
       <section className="py-24 bg-card/30 border-y border-border/50">
         <div className="container px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid min-w-0 grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.7 }}
+              className="min-w-0"
             >
               <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">Where It All Began</h2>
               <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
@@ -112,7 +114,7 @@ export default function Home() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.7 }}
-              className="relative aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden group shadow-2xl"
+              className="relative min-w-0 aspect-square md:aspect-[4/3] rounded-3xl overflow-hidden group shadow-2xl"
             >
               <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent z-10" />
               <img
@@ -146,44 +148,35 @@ export default function Home() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: "WC Europe 2022",
-                img: "/images/seasons/s9-wceu-2022.jpg",
-              },
-              {
-                title: "WC Europe 2019",
-                img: "/images/seasons/s8-wceu-2019.jpg",
-              },
-              {
-                title: "WC Ahmedabad 2018",
-                img: "/images/seasons/s7-wc-ahmedabad-2018.webp",
-              },
-              {
-                title: "WC Bucharest 2018",
-                img: "/images/seasons/s6-wc-bucharest-2018.jpg",
-              },
-            ].map((item, i) => (
+          <div className="grid min-w-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {seasons.slice(0, 3).map((season, i) => (
               <motion.div
-                key={item.title}
+                key={season.slug}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer bg-card"
+                className="group relative min-w-0 aspect-video w-full overflow-hidden rounded-2xl border border-border/60 bg-muted shadow-md transition-[box-shadow,border-color] duration-300 hover:border-primary/45 hover:shadow-lg hover:shadow-primary/10"
               >
                 <img
-                  src={pub(item.img)}
-                  alt={item.title}
+                  src={pub(season.img)}
+                  alt=""
                   loading="lazy"
                   decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                  className="pointer-events-none absolute inset-x-0 top-0 bottom-0 z-0 h-full w-full object-contain object-top px-2 pb-2 pt-0 opacity-90 transition-opacity duration-300 group-hover:opacity-100"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-80" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <h4 className="text-xl font-bold font-display">{item.title}</h4>
+                <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-background via-background/25 to-transparent" />
+                <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 bg-linear-to-t from-background/95 to-transparent px-4 pb-4 pt-8">
+                  <h4 className="font-display text-lg font-bold sm:text-xl">{season.title}</h4>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {season.location} · {season.year}
+                  </p>
                 </div>
+                <Link
+                  href={`/season/${season.slug}`}
+                  className="absolute inset-0 z-20 rounded-2xl outline-none ring-offset-2 ring-offset-background focus-visible:ring-2 focus-visible:ring-ring"
+                  aria-label={`Open season: ${season.title}`}
+                />
               </motion.div>
             ))}
           </div>
@@ -284,12 +277,13 @@ export default function Home() {
       {/* What's Next */}
       <section className="py-24 border-y border-border/50">
         <div className="container px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+          <div className="grid min-w-0 grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
+              className="min-w-0"
             >
               <span className="inline-block px-3 py-1 rounded-full bg-secondary/10 text-secondary text-xs font-bold tracking-wider mb-6 border border-secondary/20">
                 WHAT'S NEXT
@@ -309,7 +303,7 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="relative rounded-2xl overflow-hidden aspect-video bg-card border border-border shadow-xl"
+              className="relative min-w-0 rounded-2xl overflow-hidden aspect-video bg-card border border-border shadow-xl"
             >
               <a
                 href="https://www.youtube.com/watch?v=Qg3UeUct_xY"

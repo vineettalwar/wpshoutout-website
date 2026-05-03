@@ -27,6 +27,7 @@ export function PageTransition({ locationKey, children }: PageTransitionProps) {
         animate="animate"
         exit="exit"
         transition={pageTransition}
+        className="min-w-0 w-full"
         style={{ willChange: "opacity, transform" }}
       >
         {children}
